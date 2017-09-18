@@ -20,7 +20,8 @@ public class SignalAggregationStrategy extends GroupedExchangeAggregationStrateg
 
         List<Exchange> aggregatedExchanges = exchange.getProperty("CamelGroupedExchange", List.class);
 
-        // Complete aggregation if we have "numberOfSystems" (currently 3) different messages (where "system" header is different
+        // Complete aggregation if we have "numberOfSystems" (currently 3) different messages (where "system" headers are different)
+        // https://github.com/apache/camel/blob/master/camel-core/src/main/docs/eips/aggregate-eip.adoc#completing-current-group-decided-from-the-aggregationstrategy
         if (numberOfSystems == aggregatedExchanges.stream().map(e -> e.getIn().getHeader("system", String.class)).distinct().count()) {
             exchange.setProperty(Exchange.AGGREGATION_COMPLETE_CURRENT_GROUP, true);
         }
@@ -30,7 +31,7 @@ public class SignalAggregationStrategy extends GroupedExchangeAggregationStrateg
 
     @Override
     public boolean matches(Exchange exchange) {
-        // make it infinite
+        // make it infinite (4th bullet point @ https://github.com/apache/camel/blob/master/camel-core/src/main/docs/eips/aggregate-eip.adoc#about-completion)
         return false;
     }
 }

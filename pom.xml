@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>custom.aggregator</module>
+        <module>custom-aggregator</module>
     </modules>
 
 </project>

@@ -11,6 +11,8 @@
 
     <modules>
         <module>custom-aggregator</module>
+        <!--<module>gson-custom-serializer</module>-->
+        <module>processor-endpoint</module>
     </modules>
 
 </project>
